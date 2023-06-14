@@ -146,24 +146,26 @@ public:
 
 	bool OnTimer(WPARAM wParam)
 	{
-		if (wParam == m_sub_timer_id)
+		if (wParam != m_sub_timer_id) { return false; }
+
+		Move();
+		static uint32_t time_milliseconds = 0;
+		static auto ite_text = m_vecText.begin();
+		time_milliseconds += m_flush_time;
+
+		if (ite_text == m_vecText.end())
 		{
-			Move();
-			static uint32_t time_milliseconds = 0;
-			static auto ite_text = m_vecText.begin();
-			time_milliseconds += m_flush_time;
+			PostMessageW(m_hWnd, WM_QUIT, NULL, NULL);
+			KillTimer(m_hWnd, m_sub_timer_id);
+			return true;
+		}
 
-			if (ite_text == m_vecText.end())
-			{
-				PostMessageW(m_hWnd, WM_QUIT, NULL, NULL);
-			}
-
-			if (time_milliseconds >= ite_text->first)
-			{
-				m_wsText = ite_text->second;
-				InvalidateRect(m_hWnd, NULL, FALSE);
-				ite_text++;
-			}
+		if (time_milliseconds >= ite_text->first)
+		{
+			m_wsText = ite_text->second;
+			InvalidateRect(m_hWnd, NULL, FALSE);
+			ite_text++;
+			return true;
 		}
 
 		return true;
@@ -203,7 +205,7 @@ public:
 		m_width_window = uiWidth;
 		m_height_window = uiHeight;
 
-		m_flush_time = 200;
+		m_flush_time = 100;
 		m_sub_timer_id = 1008611;
 
 		m_hWnd = MakeWindow(hInstance, 0, 0, uiWidth, uiHeight);
@@ -214,30 +216,28 @@ public:
 
 	~SubtitleWindow()
 	{
+		PostMessageW(m_hWnd, WM_QUIT, NULL, NULL);
+		KillTimer(m_hWnd, m_sub_timer_id);
 		SafeFree(m_hFont);
 		SafeFree(m_hColorBK);
 	}
 };
 
 
-INT APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ INT nShowCmd)
+int main()
 {
-	SubtitleWindow sub(hInstance, L"GameWindowI", L"僜儔僐僀", 1000, 50);
+	SubtitleWindow sub(0, L"GameWindowI", L"僜儔僐僀", 1000, 50);
 
 	sub.AddSubtitle(std::make_pair(1000 * 0, L"《赤壁赋》"));
-	sub.AddSubtitle(std::make_pair(1000 * 1, L""));
-	sub.AddSubtitle(std::make_pair(1000 * 2, L"宋·苏轼"));
-	sub.AddSubtitle(std::make_pair(1000 * 3, L"壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。"));
-	sub.AddSubtitle(std::make_pair(1000 * 4, L""));
-	sub.AddSubtitle(std::make_pair(1000 * 5, L"清风徐来，水波不兴。"));
-	sub.AddSubtitle(std::make_pair(1000 * 6, L""));
-	sub.AddSubtitle(std::make_pair(1000 * 7, L"举酒属客，诵明月之诗，歌窈窕之章。"));
-	sub.AddSubtitle(std::make_pair(1000 * 8, L""));
-	sub.AddSubtitle(std::make_pair(1000 * 9, L"少焉，月出于东山之上，徘徊于斗牛之间。"));
-	sub.AddSubtitle(std::make_pair(1000 * 12, L"白露横江，水光接天。"));
-	sub.AddSubtitle(std::make_pair(1000 * 15, L"纵一苇之所如，凌万顷之茫然。"));
-	sub.AddSubtitle(std::make_pair(1000 * 17, L"浩浩乎如冯虚御风，而不知其所止；"));
-	sub.AddSubtitle(std::make_pair(1000 * 19, L"飘飘乎如遗世独立，羽化而登仙。"));
+	sub.AddSubtitle(std::make_pair(1000 * 1, L"宋·苏轼"));
+	sub.AddSubtitle(std::make_pair(1000 * 2, L"壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。"));
+	sub.AddSubtitle(std::make_pair(1000 * 3, L"清风徐来，水波不兴。"));
+	sub.AddSubtitle(std::make_pair(1000 * 4, L"举酒属客，诵明月之诗，歌窈窕之章。"));
+	sub.AddSubtitle(std::make_pair(1000 * 5, L"少焉，月出于东山之上，徘徊于斗牛之间。"));
+	sub.AddSubtitle(std::make_pair(1000 * 6, L"白露横江，水光接天。"));
+	sub.AddSubtitle(std::make_pair(1000 * 7, L"纵一苇之所如，凌万顷之茫然。"));
+	sub.AddSubtitle(std::make_pair(1000 * 8, L"浩浩乎如冯虚御风，而不知其所止；"));
+	sub.AddSubtitle(std::make_pair(1000 * 9, L"飘飘乎如遗世独立，羽化而登仙。"));
 
 	sub.Show();
 	sub.Run();

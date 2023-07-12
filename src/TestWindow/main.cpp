@@ -1,6 +1,8 @@
 ﻿#include <Windows.h>
 
-#include "TextLayer.hpp"
+#include "..\..\lib\Layer\TextLayer.h"
+
+using namespace RiaTextLayer;
 
 void Attach()
 {
@@ -22,34 +24,42 @@ void Attach()
 
 int main()
 {
+	uint32_t pos = 0;
+	uint32_t time = 10;
+	uint32_t round = 1000;
+
+	auto rand_color = [&pos](TextLayer& pLayer)
 	{
-		TextLayer layer(L"The Test Layer");
-		layer.Create();
-		layer.Show();
+		if (pos % 5) { return; }
+		float r = (rand() & 0xFF) * 0.01f;
+		float g = (rand() & 0xFF) * 0.01f;
+		float b = (rand() & 0xFF) * 0.01f;
+		pLayer.SetFont(L"黑体", 70.0);
+		pLayer.SetFontColor(D2D1::ColorF(r, g, b, 0.7f));
+	};
 
-		float r = 0, g = 0, b = 0;
-		auto rand_color = [&r, &g, &b]()
-		{
-			r = (rand() & 0xFF) * 0.01f;
-			g = (rand() & 0xFF) * 0.01f;
-			b = (rand() & 0xFF) * 0.01f;
-		};
+	TextLayer layer;
+	layer.Create(0, 0, 1000, 100);
+	layer.Show();
 
-		uint32_t pos = 0;
-		uint32_t time = 500;
-		while (1)
+	POINT pt = { 0 };
+	while (true)
+	{
+		Sleep(time);
+		if (GetAsyncKeyState(VK_SPACE))
 		{
-			rand_color();
-			layer.SetFont(L"黑体", 50);
-			layer.SetFontColor(D2D1::ColorF(r, g, b, 0.8f));
-			layer.Draw(L"Dir-A Direct2D Test!");
-			layer.Update(pos, pos);
-			Sleep(time);
-			pos += 100;
-			if (pos > 800)
-			{
-				pos = 0;
-			}
-		};
-	}
+			rand_color(layer);
+			layer.Draw(L"虾头鲲!");
+		}
+		else
+		{
+			continue;
+		}
+
+		GetCursorPos(&pt);
+		layer.Update(pt.x, pt.y);
+		printf("X:%d,Y:%d\n", pt.x, pt.y);
+	};
+
+	layer.Loop();
 }

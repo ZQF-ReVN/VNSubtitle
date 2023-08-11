@@ -1,8 +1,8 @@
 ﻿#include <Windows.h>
 
-#include "..\..\lib\Layer\TextLayer.h"
+#include "../../lib/VNSubtitle/TextLayer.h"
 
-using namespace RiaTextLayer;
+using namespace VNSubtitle;
 
 void Attach()
 {
@@ -46,6 +46,7 @@ int main()
 	while (true)
 	{
 		Sleep(time);
+		layer.SetRect(pt.x, pt.y, 1000, 100);
 		if (GetAsyncKeyState(VK_SPACE))
 		{
 			rand_color(layer);
@@ -57,7 +58,6 @@ int main()
 		}
 
 		GetCursorPos(&pt);
-		layer.Update(pt.x, pt.y);
 		printf("X:%d,Y:%d\n", pt.x, pt.y);
 	};
 

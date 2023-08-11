@@ -5,7 +5,7 @@
 #pragma comment(lib, "dwrite.lib")
 
 
-namespace RiaTextLayer
+namespace VNSubtitle
 {
 	void TextLayer::CreateDWriteFactory()
 	{
@@ -38,7 +38,7 @@ namespace RiaTextLayer
 		CreateDWriteFactory();
 	}
 
-	void TextLayer::Draw(const	std::wstring& wsText)
+	void TextLayer::Draw(const std::wstring& wsText)
 	{
 		SureRenderValid();
 

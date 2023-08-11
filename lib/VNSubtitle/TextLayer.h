@@ -1,13 +1,13 @@
 #pragma once
-#include "Layer.h"
+#include "BaseLayer.h"
 
 #include <string>
 #include <dwrite.h>
 
 
-namespace RiaTextLayer
+namespace VNSubtitle
 {
-	class TextLayer : public RiaLayer::BaseLayer
+	class TextLayer : public BaseLayer
 	{
 	private:
 		IDWriteFactory* m_pIDWriteFactory;

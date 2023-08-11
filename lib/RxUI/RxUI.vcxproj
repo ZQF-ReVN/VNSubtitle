@@ -21,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{00052629-b374-4b1c-9f08-a43efe7b3a1a}</ProjectGuid>
-    <RootNamespace>TestWindow</RootNamespace>
+    <ProjectGuid>{47251a05-1168-490c-8c8b-2585c491ca1f}</ProjectGuid>
+    <RootNamespace>RxUI</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -131,12 +131,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="Win32.h" />
+    <ClInclude Include="Win32\Dialog\OpenFileDialog.h" />
+    <ClInclude Include="Win32\Font\Font_Basic.h" />
+    <ClInclude Include="Win32\Font\Default.h" />
+    <ClInclude Include="Win32\UI\UI_Basic.h" />
+    <ClInclude Include="Win32\UI\Tools.h" />
+    <ClInclude Include="Win32\Widget\Button.h" />
+    <ClInclude Include="Win32\Widget\CheckBox.h" />
+    <ClInclude Include="Win32\Widget\GroupBox.h" />
+    <ClInclude Include="Win32\Widget\Editor.h" />
+    <ClInclude Include="Win32\Widget\Radio.h" />
+    <ClInclude Include="Win32\Widget\Widget_Basic.h" />
+    <ClInclude Include="Win32\Window\MainWindow.h" />
+    <ClInclude Include="Win32\Window\Window_Basic.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\VNSubtitle\VNSubtitle.vcxproj">
-      <Project>{9debb865-acaf-4989-bc9c-cdef3cc73468}</Project>
-    </ProjectReference>
+    <ClCompile Include="Win32\Dialog\OpenFileDialog.cpp" />
+    <ClCompile Include="Win32\UI\Tools.cpp" />
+    <ClCompile Include="Win32\UI\UI_Basic.cpp" />
+    <ClCompile Include="Win32\Window\MainWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

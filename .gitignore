@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Debug
+/lib/RxUI/Debug
+/lib/VNSubtitle/Debug
+/src/TestWindow/Debug

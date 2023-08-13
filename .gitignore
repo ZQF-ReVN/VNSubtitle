@@ -7,3 +7,8 @@
 /lib/RxUI/Debug
 /lib/VNSubtitle/Debug
 /src/TestWindow/Debug
+/lib/RxUI/Release
+/lib/RxUI/x64
+/lib/VNSubtitle/Release
+/Release
+/src/TestWindow/Release

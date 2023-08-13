@@ -132,11 +132,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseLayer.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseLayer.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TextLayer.h" />
+    <ClInclude Include="Message.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RxUI\RxUI.vcxproj">

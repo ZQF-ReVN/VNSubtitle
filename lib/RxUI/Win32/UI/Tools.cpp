@@ -7,14 +7,14 @@
 
 namespace RxUI::Win32::Tools
 {
-	void GetCenterRect(RECT& refRect, uint32_t uiWidth, uint32_t uiHeigh)
+	void GetCenterRect(RECT& refRect, int32_t iWidth, int32_t iHeigh)
 	{
 		RECT rect_screen;
 		GetWindowRect(GetDesktopWindow(), &rect_screen);
-		refRect.left = (rect_screen.right - uiWidth) / 2;
-		refRect.top = (rect_screen.bottom - uiHeigh) / 2;
-		refRect.right = refRect.left + uiWidth;
-		refRect.bottom = refRect.top + uiHeigh;
+		refRect.left = (rect_screen.right - iWidth) / 2;
+		refRect.top = (rect_screen.bottom - iHeigh) / 2;
+		refRect.right = refRect.left + iWidth;
+		refRect.bottom = refRect.top + iHeigh;
 	}
 
 	// https://github.com/glfw/glfw/blob/master/src/win32_window.c
@@ -48,5 +48,12 @@ namespace RxUI::Win32::Tools
 			::DwmEnableBlurBehindWindow(hWnd, &bb);
 			return false;
 		}
+	}
+
+	// WS_EX_LAYERED 会对性能造成影响，但是暂时没找到不开启该属性在DWM下的鼠标穿透方法
+	bool EnableMouseClickThrough(HWND hWnd)
+	{
+		::SetWindowLongPtrW(hWnd, GWL_EXSTYLE, ::GetWindowLongPtrW(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+		return ::SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
 	}
 }

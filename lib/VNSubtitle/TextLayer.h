@@ -16,18 +16,22 @@ namespace VNSubtitle
 		ID2D1SolidColorBrush* m_pID2D1FontColor;
 
 	private:
-		void CreateDWriteFactory();
-		void ReleaseDWriteFactory();
+		void CreateFactory();
+		void ReleaseFactory();
 
 	public:
 		TextLayer();
 		~TextLayer();
 
-		void Create(uint32_t uiPosX = CW_USEDEFAULT, uint32_t uiPosY = CW_USEDEFAULT, uint32_t uiWidth = 1280, uint32_t uiHeight = 720);
-		void Draw(const	std::wstring& wsText);
+		void Create(int32_t iPosX = CW_USEDEFAULT, int32_t iPosY = CW_USEDEFAULT, int32_t iWidth = 1280, int32_t iHeight = 720);
+		void PutSring(std::wstring_view wsText);
 
 	public:
-		void SetFont(const std::wstring& wsFont, const float flSize);
-		void SetFontColor(const D2D1::ColorF& cColor);
+		void SetFont(std::wstring_view wsFont, uint32_t uiSize);
+		void SetFontColor(uint32_t uiRGBA);
+
+	private:
+		LRESULT HandleMsg(UINT uMsg, WPARAM wParam, LPARAM lParam) override;
+
 	};
 }

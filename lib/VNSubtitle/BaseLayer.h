@@ -9,8 +9,7 @@ namespace VNSubtitle
 	class BaseLayer : public RxUI::Win32::Window::MainWindow
 	{	
 	private:
-		bool m_isRenderValid;
-		uint32_t m_uiWidth, m_uiHeight;
+		int32_t m_iWidth, m_iHeigh;
 
 		ID2D1Factory* m_pID2D1Factory;
 		ID2D1HwndRenderTarget* m_pRenderTarget;
@@ -18,7 +17,6 @@ namespace VNSubtitle
 	protected:
 		template <typename PTR_TYPE> void SafeRelease(PTR_TYPE& pT){ if (pT) { pT->Release(); pT = nullptr; }}
 
-	private:
 		void CreateFactory();
 		void CreateRender();
 		void ReleaseRender();
@@ -29,16 +27,20 @@ namespace VNSubtitle
 		~BaseLayer();
 		void ZeroThisOBJ();
 
-		void CreateBaseLayer(uint32_t uiPosX = CW_USEDEFAULT, uint32_t uiPosY = CW_USEDEFAULT, uint32_t uiWidth = 1280, uint32_t uiHeight = 720);
+		void CreateBaseLayer(int32_t iPosX = CW_USEDEFAULT, int32_t iPosY = CW_USEDEFAULT, int32_t iWidth = 1280, int32_t iHeight = 720);
 		void DestroyBaseLayer();
 
-		void Create(const wchar_t* wpClass, const wchar_t* wpTtile, uint32_t uiStyle, uint32_t uiStyleEx, HWND hParent = nullptr) override;
+		void SetPos(int32_t iPosX, int32_t iPosY);
+		void SetSize(int32_t iWidth, int32_t iHeigh);
+
+		void Create(const wchar_t* wpClass, const wchar_t* wpTtile, uint32_t uiStyle, uint32_t uiStyleEx, HWND hParent) override;
 
 	public:
-		void SetRenderInvalid();
-		void SureRenderValid();
-		uint32_t GetBaseLayerWidth() const { return m_uiWidth; }
-		uint32_t GetBaseLayerHeight() const { return m_uiHeight; }
+		void SureRender();
+		void SetWidth(uint32_t uiWidth) { m_iWidth = uiWidth; }
+		void SetHeigh(uint32_t uiHeigh) { m_iHeigh = uiHeigh; }
+		uint32_t GetWidth() const { return m_iWidth; }
+		uint32_t GetHeight() const { return m_iHeigh; }
 		ID2D1HwndRenderTarget* GetRender();
 	};
 }

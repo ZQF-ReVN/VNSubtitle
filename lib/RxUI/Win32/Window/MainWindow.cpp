@@ -3,6 +3,16 @@
 
 namespace RxUI::Win32::Window
 {
+	MainWindow::MainWindow()
+	{
+
+	}
+
+	MainWindow::~MainWindow()
+	{
+		this->UnregClass();
+	}
+
 	void MainWindow::Create(const wchar_t* wpClass, const wchar_t* wpTtile, uint32_t uiStyle, uint32_t uiStyleEx , HWND hParent)
 	{
 		WNDCLASSEXW wcx = { 0 };
@@ -33,21 +43,18 @@ namespace RxUI::Win32::Window
 		case WM_PAINT:
 		{
 			this->OnPaint();
-			return S_OK;
 		}
 		break;
 
 		case WM_CREATE:
 		{
 			this->OnCreate(wParam, lParam);
-			return S_OK;
 		}
 		break;
 
 		case WM_SIZE:
 		{
 			this->OnSize(wParam, LOWORD(lParam), HIWORD(lParam));
-			return S_OK;
 		}
 		break;
 
@@ -66,7 +73,6 @@ namespace RxUI::Win32::Window
 			{
 				MenuCommand(LOWORD(wParam));
 			}
-			return S_OK;
 		}
 		break;
 
@@ -83,6 +89,16 @@ namespace RxUI::Win32::Window
 		break;
 		};
 
+		if ((uMsg >= WM_APP) && (uMsg <= 0xBFFF))
+		{
+			return this->HandleAppMsg(uMsg, wParam, lParam);
+		}
+
+		return this->MsgDefault(uMsg, wParam, lParam);
+	}
+
+	LRESULT MainWindow::HandleAppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
+	{
 		return this->MsgDefault(uMsg, wParam, lParam);
 	}
 

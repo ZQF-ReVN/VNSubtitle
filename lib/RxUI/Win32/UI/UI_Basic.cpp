@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include <assert.h>
 
+#include "Tools.h"
+
 
 namespace RxUI::Win32::UI
 {
@@ -28,6 +30,16 @@ namespace RxUI::Win32::UI
 	{
 		m_fnEvent = fnEvent;
 		this->SetUserData((intptr_t)this);
+	}
+
+	bool UI_Basic::EnableAlpha()
+	{
+		return Tools::EnableAlphaCompositing(this->GetHandle());
+	}
+
+	bool UI_Basic::EnableThrough()
+	{
+		return Tools::EnableMouseClickThrough(this->GetHandle());
 	}
 
 	void UI_Basic::SetFont(HFONT hFont)
@@ -76,9 +88,9 @@ namespace RxUI::Win32::UI
 		return ::RegisterClassExW(&refWCX) ? true : false;
 	}
 
-	bool UI_Basic::UnregClass(const wchar_t* wpClass, HINSTANCE hInstance)
+	bool UI_Basic::UnregClass()
 	{
-		return ::UnregisterClassW(wpClass, hInstance);
+		return ::UnregisterClassW(m_wsClass.c_str(), m_hInstance);
 	}
 
 	bool UI_Basic::Show(int32_t iShow)
@@ -91,9 +103,9 @@ namespace RxUI::Win32::UI
 		return ::UpdateWindow(this->GetHandle());
 	}
 
-	bool UI_Basic::Destroy()
+	void UI_Basic::Destroy()
 	{
-		return ::DestroyWindow(this->GetHandle());;
+		::PostQuitMessage(0);
 	}
 
 	bool UI_Basic::Enable(bool isEnable)
@@ -133,6 +145,23 @@ namespace RxUI::Win32::UI
 	bool UI_Basic::SetRect(int32_t iPosX, int32_t iPosY, int32_t iWidth, int32_t iHeigh, bool isRepaint)
 	{
 		return ::MoveWindow(this->GetHandle(), iPosX, iPosY, iWidth, iHeigh, isRepaint);
+	}
+
+	bool UI_Basic::SetSize(int32_t iWidth, int32_t iHeigh)
+	{
+		return ::SetWindowPos(this->GetHandle(), HWND_TOP, 0, 0, iWidth, iHeigh, SWP_NOMOVE | SWP_NOZORDER);
+	}
+
+	bool UI_Basic::SetCenter(int32_t iWidth, int32_t iHeigh)
+	{
+		RECT rect = { };
+		Tools::GetCenterRect(rect, iWidth, iHeigh);
+		return SetRect(rect);
+	}
+
+	bool UI_Basic::SetPos(int32_t iPosX, int32_t iPosY)
+	{
+		return ::SetWindowPos(this->GetHandle(), HWND_TOP, iPosX, iPosY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 	}
 
 	intptr_t UI_Basic::GetWindowData(int iIndex)

@@ -20,7 +20,7 @@ namespace RxUI::Win32::UI
 		~UI_Basic();
 
 		void Run();
-		bool Destroy();
+		void Destroy();
 		bool Enable(bool isEnable);
 		bool Update(bool isRepaint = true);
 		bool Show(int32_t iShow = SW_NORMAL);
@@ -28,13 +28,19 @@ namespace RxUI::Win32::UI
 
 		// Window Class Reg / Unreg
 		bool RegClass(WNDCLASSEXW& refWCX);
-		bool UnregClass(const wchar_t* wpClass, HINSTANCE hInstance);
+		bool UnregClass();
 
 		// Event Funcation
 		void OnEvent(HWND hWnd, uint32_t uiID);
 		void SetEvent(std::function<void(HWND, WPARAM)> fnEvent);
 
+		bool EnableAlpha();
+		bool EnableThrough();
+
 		// Move / Size
+		bool SetPos(int32_t iPosX, int32_t iPosY);
+		bool SetSize(int32_t iWidth, int32_t iHeigh);
+		bool SetCenter(int32_t iWidth, int32_t iHeigh);
 		bool SetRect(RECT& refRect, bool isRepaint = true);
 		bool SetRect(int32_t iPosX, int32_t iPosY, int32_t iWidth, int32_t iHeigh, bool isRepaint = true);
 

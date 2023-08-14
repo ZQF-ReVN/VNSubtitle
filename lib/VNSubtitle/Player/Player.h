@@ -31,7 +31,18 @@ namespace VNSubtitle
 		std::vector<Subtitle> m_vecSubtitle;
 
 	public:
+		Player()
+		{
+
+		}
+
 		Player(HWND hLayer, HWND hGame);
+
+		void Init(HWND hLayer, HWND hGame)
+		{
+			m_hLayer = hLayer;
+			m_hGame = hGame;
+		}
 
 		void SetSize(uint32_t uiWidth, uint32_t uiHeigh)
 		{

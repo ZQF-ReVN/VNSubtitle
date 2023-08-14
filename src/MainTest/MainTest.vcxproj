@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{00052629-b374-4b1c-9f08-a43efe7b3a1a}</ProjectGuid>
-    <RootNamespace>TestWindow</RootNamespace>
+    <ProjectGuid>{77b2e039-730f-44e0-bd4b-9ad761c253a8}</ProjectGuid>
+    <RootNamespace>MainTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -137,6 +137,9 @@
     <ProjectReference Include="..\..\lib\VNSubtitle\VNSubtitle.vcxproj">
       <Project>{9debb865-acaf-4989-bc9c-cdef3cc73468}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ContralWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -154,9 +154,35 @@ namespace RxUI::Win32::UI
 
 	bool UI_Basic::SetCenter(int32_t iWidth, int32_t iHeigh)
 	{
-		RECT rect = { };
+		if (iWidth == 0 && iHeigh == 0)
+		{
+			RECT rect = { 0 };
+			this->GetRect(rect);
+			iWidth = rect.right - rect.left;
+			iHeigh = rect.bottom - rect.top;
+		}
+		RECT rect = { 0 };
 		Tools::GetCenterRect(rect, iWidth, iHeigh);
 		return SetRect(rect);
+	}
+
+	uint32_t UI_Basic::GetHeigh(bool isClient)
+	{
+		RECT rect = { 0 };
+		this->GetRect(rect, isClient);
+		return (rect.bottom - rect.top);
+	}
+
+	uint32_t UI_Basic::GetWidth(bool isClient)
+	{
+		RECT rect = { 0 };
+		this->GetRect(rect, isClient);
+		return (rect.right - rect.left);
+	}
+
+	bool UI_Basic::GetRect(RECT& rfRect, bool isClient)
+	{
+		return GetWindowRect(this->GetHandle(), &rfRect);
 	}
 
 	bool UI_Basic::SetPos(int32_t iPosX, int32_t iPosY)
@@ -172,6 +198,11 @@ namespace RxUI::Win32::UI
 	intptr_t UI_Basic::SetWindowData(int iIndex, intptr_t iValue)
 	{
 		return (intptr_t)::SetWindowLongPtrW(this->GetHandle(), iIndex, iValue);
+	}
+
+	LRESULT UI_Basic::PostMsg(UINT uiMsg, WPARAM wParam, LPARAM lParam)
+	{
+		return ::PostMessageW(this->GetHandle(), uiMsg, wParam, lParam);
 	}
 
 	LRESULT UI_Basic::SendMsg(UINT uiMsg, WPARAM wParam, LPARAM lParam)
@@ -236,21 +267,19 @@ namespace RxUI::Win32::UI
 
 	intptr_t UI_Basic::SetID(uint16_t uiID, bool isRandom)
 	{
-		uint16_t id = 0;
 		if (isRandom)
 		{
 			while (true)
 			{
-				id = rand() & 0x0000FFFF;
-				if (id != 0) { break; }
+				uiID = rand() & 0x0000FFFF;
+				if (uiID != 0)
+				{ 
+					break;
+				}
 			}
 		}
-		else
-		{
-			id = uiID;
-		}
 
-		return this->SetWindowData(GWLP_ID, id);
+		return this->SetWindowData(GWLP_ID, uiID);
 	}
 
 	uint16_t UI_Basic::GetID()

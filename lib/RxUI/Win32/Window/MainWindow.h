@@ -8,7 +8,7 @@ namespace RxUI::Win32::Window
 	{
 	public:
 		MainWindow();
-		~MainWindow();
+		virtual ~MainWindow();
 
 		void Create(const wchar_t* wpClass, const wchar_t* wpTtile, uint32_t uiStyle = WS_OVERLAPPEDWINDOW, uint32_t uiStyleEx = 0, HWND hParent = nullptr);
 		void Loop();
@@ -18,7 +18,7 @@ namespace RxUI::Win32::Window
 		virtual LRESULT HandleMsg(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		// App Msg
-		virtual LRESULT HandleAppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam);
+		virtual LRESULT AppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		// OnCommand
 		virtual void MenuCommand(uint32_t uiID) { }

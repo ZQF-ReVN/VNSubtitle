@@ -4,12 +4,11 @@
 
 namespace VNSubtitle
 {
-	HWND GetGameHandle(const wchar_t* wpClass, const wchar_t* wpTitle)
+	uint32_t MakeRGBA(uint8_t uR, uint8_t uG, uint8_t uB, uint8_t uA)
 	{
-		HWND hwnd = FindWindowW(wpClass, wpTitle);
-		if (hwnd == nullptr) { throw std::runtime_error("Not Find Game Window"); }
-		return hwnd;
+		return ((uint32_t)uR << 0x18) | ((uint32_t)uG << 0x10) | ((uint32_t)uB << 0x08) | ((uint32_t)uA << 0x00);
 	}
+
 
 	Player::Player(HWND hLayer, HWND hGame) : m_hGame(hGame), m_hLayer(hLayer)
 	{
@@ -21,22 +20,22 @@ namespace VNSubtitle
 		m_vecSubtitle.emplace_back(wsText, uiDuration);
 	}
 
-	void Player::ShowSub(Subtitle& rfSubtitle)
+	void Player::PutText(std::wstring_view wsText)
 	{
-		SendMessageW(m_hLayer, VNSM_PLAY, (WPARAM)&rfSubtitle, 0);
+		SendMessageW(m_hLayer, VNSM_PUT_TEXT, (WPARAM)&wsText, 0);
 	}
 
 	void Player::SetFont(std::wstring_view wsFont, uint32_t uiSize)
 	{
-		SendMessageW(m_hLayer, VNSM_FONT, (WPARAM)wsFont.data(), (LPARAM)uiSize);
+		SendMessageW(m_hLayer, VNSM_SET_FONT, (WPARAM)wsFont.data(), (LPARAM)uiSize);
 	}
 
 	void Player::SetFontColor(uint32_t uiRGBA)
 	{
-		SendMessageW(m_hLayer, VNSM_FONTCOLOR, (WPARAM)uiRGBA, 0);
+		SendMessageW(m_hLayer, VNSM_SET_FONTCOLOR, (WPARAM)uiRGBA, 0);
 	}
 
-	void Player::TraceGameWindow()
+	void Player::Trace()
 	{
 		SendMessageW(m_hLayer, VNSM_TRACE, (WPARAM)m_hGame, 0);
 	}
@@ -50,10 +49,12 @@ namespace VNSubtitle
 	{
 		for (auto& subtitle : m_vecSubtitle)
 		{
-			TraceGameWindow();
-			ShowSub(subtitle);
+			Trace();
+			PutText(subtitle.m_wsText);
+			Sleep(subtitle.m_uiDuration);
 		}
 
 		CloseLayer();
 	}
+
 }

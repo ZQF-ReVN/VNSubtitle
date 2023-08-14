@@ -5,7 +5,7 @@
 #include <dwrite.h>
 
 
-namespace VNSubtitle
+namespace VNSubtitle::Layer::D2D
 {
 	class TextLayer : public BaseLayer
 	{
@@ -13,6 +13,7 @@ namespace VNSubtitle
 		IDWriteFactory* m_pIDWriteFactory;
 		IDWriteTextFormat* m_pIDWriteTextFormat;
 
+		D2D1::ColorF m_coBackColor;
 		ID2D1SolidColorBrush* m_pID2D1FontColor;
 
 	private:
@@ -23,15 +24,12 @@ namespace VNSubtitle
 		TextLayer();
 		~TextLayer();
 
-		void Create(int32_t iPosX = CW_USEDEFAULT, int32_t iPosY = CW_USEDEFAULT, int32_t iWidth = 1280, int32_t iHeight = 720);
-		void PutSring(std::wstring_view wsText);
+		void Create(const wchar_t* wpClass, const wchar_t* wpTtile);
 
-	public:
+		void SetBackColor(uint32_t uiRGBA);
+		void PutText(std::wstring_view wsText);
 		void SetFont(std::wstring_view wsFont, uint32_t uiSize);
 		void SetFontColor(uint32_t uiRGBA);
-
-	private:
-		LRESULT HandleMsg(UINT uMsg, WPARAM wParam, LPARAM lParam) override;
 
 	};
 }

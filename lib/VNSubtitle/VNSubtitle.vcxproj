@@ -131,15 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseLayer.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="TextLayer.cpp" />
+    <ClCompile Include="Layer\D2D\BaseLayer.cpp" />
+    <ClCompile Include="Layer\D2D\TextLayer.cpp" />
+    <ClCompile Include="Layer\MainLayer.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseLayer.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="TextLayer.h" />
+    <ClInclude Include="Layer\D2D\BaseLayer.h" />
+    <ClInclude Include="Layer\D2D\TextLayer.h" />
+    <ClInclude Include="Layer\MainLayer.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="VNSubtitle.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RxUI\RxUI.vcxproj">

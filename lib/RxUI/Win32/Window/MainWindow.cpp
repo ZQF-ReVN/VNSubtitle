@@ -63,15 +63,15 @@ namespace RxUI::Win32::Window
 			HWND handle = (HWND)lParam;
 			if (handle) // Control
 			{
-				WidgetCommand(handle, HIWORD(wParam));
+				this->WidgetCommand(handle, HIWORD(wParam));
 			}
 			else if (HIWORD(wParam) == 1) // Accelerator
 			{
-				AcceleratorCommand(LOWORD(wParam));
+				this->AcceleratorCommand(LOWORD(wParam));
 			}
 			else if (HIWORD(wParam) == 0) // Menu
 			{
-				MenuCommand(LOWORD(wParam));
+				this->MenuCommand(LOWORD(wParam));
 			}
 		}
 		break;
@@ -91,23 +91,23 @@ namespace RxUI::Win32::Window
 
 		if ((uMsg >= WM_APP) && (uMsg <= 0xBFFF))
 		{
-			return this->HandleAppMsg(uMsg, wParam, lParam);
+			return this->AppMsg(uMsg, wParam, lParam);
 		}
 
 		return this->MsgDefault(uMsg, wParam, lParam);
 	}
 
-	LRESULT MainWindow::HandleAppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT MainWindow::AppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		return this->MsgDefault(uMsg, wParam, lParam);
 	}
 
 	void MainWindow::WidgetCommand(HWND hWnd, uint32_t uiID)
 	{
-		UI::UI_Basic* ui_ptr = (UI::UI_Basic*)::GetWindowLongPtrW(hWnd, GWLP_USERDATA);
-		if (ui_ptr)
+		UI::UI_Basic* widget_ptr = (UI::UI_Basic*)::GetWindowLongPtrW(hWnd, GWLP_USERDATA);
+		if (widget_ptr)
 		{
-			ui_ptr->OnEvent(hWnd, uiID);
+			widget_ptr->OnEvent(hWnd, uiID);
 		}
 	}
 

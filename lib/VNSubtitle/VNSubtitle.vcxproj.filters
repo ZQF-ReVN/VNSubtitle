@@ -1,34 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BaseLayer.cpp">
-      <Filter>Layer</Filter>
+    <ClCompile Include="Layer\D2D\BaseLayer.cpp">
+      <Filter>Layer\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="TextLayer.cpp">
-      <Filter>Layer</Filter>
+    <ClCompile Include="Layer\D2D\TextLayer.cpp">
+      <Filter>Layer\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer\MainLayer.cpp">
+      <Filter>Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseLayer.h">
-      <Filter>Layer</Filter>
+    <ClInclude Include="Layer\D2D\BaseLayer.h">
+      <Filter>Layer\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="TextLayer.h">
-      <Filter>Layer</Filter>
+    <ClInclude Include="Layer\D2D\TextLayer.h">
+      <Filter>Layer\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="VNSubtitle.h" />
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Message.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
+    <ClInclude Include="Layer\MainLayer.h">
+      <Filter>Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Layer">
-      <UniqueIdentifier>{74c8e943-87f5-45e9-89c5-761d889eee14}</UniqueIdentifier>
+      <UniqueIdentifier>{61d24e70-4493-43a1-af04-d9a915a1bad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer\D2D">
+      <UniqueIdentifier>{5ba7837c-d036-422a-95ba-6d9ea9dc4f18}</UniqueIdentifier>
     </Filter>
     <Filter Include="Player">
-      <UniqueIdentifier>{0678bb5d-efdd-45d1-8f48-c16aa5c7c19c}</UniqueIdentifier>
+      <UniqueIdentifier>{b7566a4d-0134-4cc9-886f-04dca2228184}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

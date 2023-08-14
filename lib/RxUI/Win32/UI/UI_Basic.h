@@ -17,7 +17,7 @@ namespace RxUI::Win32::UI
 
 	public:
 		UI_Basic();
-		~UI_Basic();
+		virtual ~UI_Basic();
 
 		void Run();
 		void Destroy();
@@ -27,20 +27,24 @@ namespace RxUI::Win32::UI
 		HWND CreateWnd(const wchar_t* wpClass, const wchar_t* wpText, uint32_t uiStyle, uint32_t uiStyleEx, HWND hParent, intptr_t lParam);
 
 		// Window Class Reg / Unreg
-		bool RegClass(WNDCLASSEXW& refWCX);
 		bool UnregClass();
+		bool RegClass(WNDCLASSEXW& refWCX);
 
 		// Event Funcation
 		void OnEvent(HWND hWnd, uint32_t uiID);
 		void SetEvent(std::function<void(HWND, WPARAM)> fnEvent);
-
+		
+		// Window Transparent / Mouse Click Through
 		bool EnableAlpha();
 		bool EnableThrough();
 
 		// Move / Size
+		uint32_t GetHeigh(bool isClient = false);
+		uint32_t GetWidth(bool isClient = false);
+		bool GetRect(RECT& rfRect, bool isClient = false);
 		bool SetPos(int32_t iPosX, int32_t iPosY);
 		bool SetSize(int32_t iWidth, int32_t iHeigh);
-		bool SetCenter(int32_t iWidth, int32_t iHeigh);
+		bool SetCenter(int32_t iWidth = 0, int32_t iHeigh = 0);
 		bool SetRect(RECT& refRect, bool isRepaint = true);
 		bool SetRect(int32_t iPosX, int32_t iPosY, int32_t iWidth, int32_t iHeigh, bool isRepaint = true);
 
@@ -49,6 +53,7 @@ namespace RxUI::Win32::UI
 		intptr_t SetWindowData(int iIndex, intptr_t iValue);
 
 		// Msg
+		LRESULT PostMsg(UINT uiMsg, WPARAM wParam = 0, LPARAM lParam = 0);
 		LRESULT SendMsg(UINT uiMsg, WPARAM wParam = 0, LPARAM lParam = 0);
 		LRESULT MsgDefault(UINT uMsg, WPARAM wParam, LPARAM lParam);
 

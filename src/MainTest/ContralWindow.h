@@ -30,7 +30,7 @@ public:
 		player.SetBackColor(VNSubtitle::MakeRGBA(0, 0, 0, 160));
 		player.Show();
 
-		player.SetFont(L"·½Õý×¼Ô²_GBK", 55);
+		player.SetFont(L"Î¢ÈíÑÅºÚ", 55);
 		player.SetFontColor(VNSubtitle::MakeRGBA(255, 255, 255, 255));
 	}
 

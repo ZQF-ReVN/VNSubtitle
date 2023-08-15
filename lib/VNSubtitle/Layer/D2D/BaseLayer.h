@@ -46,8 +46,8 @@ namespace VNSubtitle::Layer::D2D
 		void OnCreate(WPARAM wParam, LPARAM lParam) override;
 		void OnSize(WPARAM wType, uint32_t uiWidth, uint32_t uiHeigh) override;
 		void OnPaint() override;
-		void DrawBack(ID2D1HwndRenderTarget* pTarget);
-		void DrawStr(ID2D1HwndRenderTarget* pTarget);
+		void PaintBack(ID2D1HwndRenderTarget* pTarget);
+		void PaintText(ID2D1HwndRenderTarget* pTarget);
 
 		void PutText(std::wstring_view wsText);
 		void SetFont(std::wstring_view wsFont, uint32_t uiSize);

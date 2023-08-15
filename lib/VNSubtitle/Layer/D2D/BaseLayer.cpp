@@ -146,8 +146,8 @@ namespace VNSubtitle::Layer::D2D
 
 		target->BeginDraw();
 
-		DrawBack(target);
-		DrawStr(target);
+		PaintBack(target);
+		PaintText(target);
 
 		if (FAILED(target->EndDraw()))
 		{
@@ -159,12 +159,12 @@ namespace VNSubtitle::Layer::D2D
 		}
 	}
 
-	void BaseLayer::DrawBack(ID2D1HwndRenderTarget* pTarget)
+	void BaseLayer::PaintBack(ID2D1HwndRenderTarget* pTarget)
 	{
 		pTarget->Clear(MakeD2DColor(m_uiBackColorRGBA));
 	}
 
-	void BaseLayer::DrawStr(ID2D1HwndRenderTarget* pTarget)
+	void BaseLayer::PaintText(ID2D1HwndRenderTarget* pTarget)
 	{
 		if (m_wsText.length())
 		{

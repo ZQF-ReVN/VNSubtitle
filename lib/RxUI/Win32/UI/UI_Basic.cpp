@@ -98,9 +98,19 @@ namespace RxUI::Win32::UI
 		return ::ShowWindow(this->GetHandle(), iShow);
 	}
 
-	bool UI_Basic::Update(bool isRepaint)
+	bool UI_Basic::Update()
 	{
 		return ::UpdateWindow(this->GetHandle());
+	}
+
+	bool UI_Basic::Invalidate(RECT* pRect, bool isErase)
+	{
+		return ::InvalidateRect(this->GetHandle(), pRect, isErase);
+	}
+
+	bool UI_Basic::Validate(RECT* pRect)
+	{
+		return ::ValidateRect(this->GetHandle(), pRect);
 	}
 
 	void UI_Basic::Destroy()
@@ -182,7 +192,14 @@ namespace RxUI::Win32::UI
 
 	bool UI_Basic::GetRect(RECT& rfRect, bool isClient)
 	{
-		return GetWindowRect(this->GetHandle(), &rfRect);
+		if (isClient)
+		{
+			return ::GetClientRect(this->GetHandle(), &rfRect);
+		}
+		else
+		{
+			return ::GetWindowRect(this->GetHandle(), &rfRect);
+		}
 	}
 
 	bool UI_Basic::SetPos(int32_t iPosX, int32_t iPosY)

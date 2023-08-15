@@ -28,6 +28,7 @@ namespace RxUI::Win32::Window
 		virtual void OnPaint() { }
 		virtual void OnCreate(WPARAM wParam, LPARAM lParam) { }
 		virtual void OnSize(WPARAM wType, uint32_t uiWidth, uint32_t uiHeigh) { }
+		virtual void OnMouseWheel(int16_t sDistance, uint16_t usFlag, uint16_t usCurX, uint16_t usCurY) {};
 
 		virtual LRESULT OnNCClick(UINT uMsg, WPARAM wParam, LPARAM lParam);
 		virtual LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam);

@@ -58,6 +58,12 @@ namespace RxUI::Win32::Window
 		}
 		break;
 
+		case WM_MOUSEWHEEL:
+		{
+			this->OnMouseWheel(HIWORD(wParam), LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
+		}
+		break;
+
 		case WM_COMMAND:
 		{
 			HWND handle = (HWND)lParam;

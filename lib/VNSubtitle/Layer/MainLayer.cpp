@@ -30,24 +30,50 @@ namespace VNSubtitle::Layer::D2D
 
 		if (lanyer_hwnd == nullptr) 
 		{ 
-			MessageBoxW(NULL, L"Not Find Layer", NULL, NULL);
+			::MessageBoxW(NULL, L"Not Find Layer", NULL, NULL);
 		}
 
 		return lanyer_hwnd;
 	}
 
+	LRESULT MainLayer::OnNCClick(UINT uMsg, WPARAM wParam, LPARAM lParam)
+	{
+		POINT cur = { LOWORD(lParam), HIWORD(lParam) };
+		::ScreenToClient(this->GetHandle(), &cur);
 
-	LRESULT MainLayer::HandleMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
+		int32_t px = (int32_t)cur.x;
+		int32_t py = (int32_t)cur.y;
+		int32_t cw = (int32_t)this->GetWidth(true);
+		int32_t ch = (int32_t)this->GetHeigh(true);
+
+		if (((cw - px) < 10) && ((ch - py) < 10))
+		{
+			return HTBOTTOMRIGHT;
+		}
+		else
+		{
+			return HTCAPTION;
+		}
+	}
+
+	void MainLayer::OnMouseWheel(int16_t sDistance, uint16_t usFlag, uint16_t usCurX, uint16_t usCurY)
+	{
+		if (sDistance > 0)
+		{
+			this->SetFontSize(this->GetFontSize() - 2);
+		}
+		else
+		{
+			this->SetFontSize(this->GetFontSize() + 2);
+		}
+
+		this->Invalidate();
+	}
+
+	LRESULT MainLayer::AppMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		switch (uMsg)
 		{
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			return S_OK;
-		}
-		break;
-
 		case VNSM_SET_BKCOLOR:
 		{
 			this->SetBackColor((uint32_t)wParam);
@@ -89,28 +115,30 @@ namespace VNSubtitle::Layer::D2D
 			HWND game_hwnd = (HWND)wParam;
 			GetClientRect(game_hwnd, &rect);
 			ClientToScreen(game_hwnd, &point);
-			SetPos(point.x, point.y);
+			int32_t gw = rect.right - rect.left;
+			int32_t lw = this->GetWidth(true);
+			SetPos(point.x + ((gw - lw) / 2), point.y);
 			return S_OK;
 		}
 		break;
 
 		case VNSM_PUT_TEXT:
 		{
-			PutText(*(std::wstring_view*)wParam);
+			this->PutText(*(std::wstring_view*)wParam);
 			return S_OK;
 		}
 		break;
 
 		case VNSM_SET_FONT:
 		{
-			SetFont((const wchar_t*)wParam, (uint32_t)lParam);
+			this->SetFont((const wchar_t*)wParam, (uint32_t)lParam);
 			return S_OK;
 		}
 		break;
 
 		case VNSM_SET_FONTCOLOR:
 		{
-			SetFontColor((uint32_t)wParam);
+			this->SetFontColor((uint32_t)wParam);
 			return S_OK;
 		}
 		break;

@@ -22,7 +22,9 @@ namespace RxUI::Win32::UI
 		void Run();
 		void Destroy();
 		bool Enable(bool isEnable);
-		bool Update(bool isRepaint = true);
+		bool Update();
+		bool Invalidate(RECT* pRect = nullptr, bool isErase = true);
+		bool Validate(RECT* pRect = nullptr);
 		bool Show(int32_t iShow = SW_NORMAL);
 		HWND CreateWnd(const wchar_t* wpClass, const wchar_t* wpText, uint32_t uiStyle, uint32_t uiStyleEx, HWND hParent, intptr_t lParam);
 

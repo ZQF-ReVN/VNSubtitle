@@ -132,13 +132,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Layer\D2D\BaseLayer.cpp" />
-    <ClCompile Include="Layer\D2D\TextLayer.cpp" />
     <ClCompile Include="Layer\MainLayer.cpp" />
     <ClCompile Include="Player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer\D2D\BaseLayer.h" />
-    <ClInclude Include="Layer\D2D\TextLayer.h" />
     <ClInclude Include="Layer\MainLayer.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Player\Player.h" />

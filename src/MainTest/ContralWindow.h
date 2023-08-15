@@ -25,12 +25,13 @@ public:
 	{
 		player.Init(hLayer, hGame);
 		player.EnableAlpha();
-		player.EnableThrough();
-		player.SetSize(1264, 80);
+		//player.EnableThrough();
+		player.SetSize(1200, 100);
+		player.Trace();
 		player.SetBackColor(VNSubtitle::MakeRGBA(0, 0, 0, 160));
 		player.Show();
 
-		player.SetFont(L"Î¢ÈíÑÅºÚ", 55);
+		player.SetFont(L"Î¢ÈíÑÅºÚ", 38);
 		player.SetFontColor(VNSubtitle::MakeRGBA(255, 255, 255, 255));
 	}
 

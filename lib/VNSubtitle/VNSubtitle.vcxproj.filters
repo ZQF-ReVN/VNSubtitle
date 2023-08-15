@@ -4,9 +4,6 @@
     <ClCompile Include="Layer\D2D\BaseLayer.cpp">
       <Filter>Layer\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="Layer\D2D\TextLayer.cpp">
-      <Filter>Layer\D2D</Filter>
-    </ClCompile>
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
@@ -16,9 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer\D2D\BaseLayer.h">
-      <Filter>Layer\D2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer\D2D\TextLayer.h">
       <Filter>Layer\D2D</Filter>
     </ClInclude>
     <ClInclude Include="VNSubtitle.h" />
